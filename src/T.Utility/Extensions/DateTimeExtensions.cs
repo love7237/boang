@@ -32,7 +32,7 @@ namespace T.Utility.Extensions
         /// </summary>
         /// <param name="unixTime"></param>
         /// <returns></returns>
-        public static DateTime FromUnixSeconds(long unixTime)
+        public static DateTime FromUnixTimeSeconds(long unixTime)
         {
             return DateTimeOffset.FromUnixTimeSeconds(unixTime).LocalDateTime;
         }

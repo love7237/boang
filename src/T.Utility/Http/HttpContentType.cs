@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace T.Utility.Http
+﻿namespace T.Utility.Http
 {
     /// <summary>
-    /// HTTP 内容类型(Content-Type)
+    /// HTTP内容类型(Content-Type)
     /// </summary>
     public class HttpContentType
     {

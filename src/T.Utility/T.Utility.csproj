@@ -7,7 +7,9 @@
     <Company>boang.tech</Company>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <Version>1.0.6</Version>
+    <Version>2.0.0</Version>
+    <Description>1、重构的HTTP扩展类
+2、增加深拷贝、验证扩展类</Description>
   </PropertyGroup>
 
   <ItemGroup>

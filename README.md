@@ -1,4 +1,4 @@
-# boang
+# 示例
 
 ```
 HttpResult<string> httpResult = httpClient.SetBaseUri("基础地址").AppendSegments("路由片段")

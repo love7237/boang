@@ -5,7 +5,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Boang</Authors>
     <Company>boang.tech</Company>
-    <Description></Description>
+    <Description>1、TLog方法名称与Microsoft.Extensions.Logging.LoggerExtensions保持一致</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

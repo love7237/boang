@@ -140,7 +140,7 @@ namespace T.Utility.Security
         }
 
         /// <summary>
-        /// 计算字符串的sha256值
+        /// 计算字符串的sha512值
         /// </summary>
         /// <param name="str">字符串</param>
         /// <param name="encoding">字符编码(默认值:UTF-8)</param>

@@ -11,7 +11,7 @@ namespace T.Utility.Serialization
     {
         static JsonHelper()
         {
-            //文档地址：https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
+            // 文档地址：https://www.newtonsoft.com/json/help/html/SerializationSettings.htm
             JsonConvert.DefaultSettings = new Func<JsonSerializerSettings>(() =>
             {
                 JsonSerializerSettings setting = new JsonSerializerSettings
@@ -54,53 +54,53 @@ namespace T.Utility.Serialization
         /// Deserializes the JSON to the specified .NET type.
         /// </summary>
         /// <typeparam name="T">The type of the object to deserialize to.</typeparam>
-        /// <param name="value">The JSON to deserialize.</param>
+        /// <param name="json">The JSON to deserialize.</param>
         /// <returns></returns>
-        public static T Deserialize<T>(string value)
+        public static T Deserialize<T>(string json)
         {
-            return JsonConvert.DeserializeObject<T>(value);
+            return JsonConvert.DeserializeObject<T>(json);
         }
 
         /// <summary>
         /// Deserializes the JSON to the specified .NET type using customized <see cref="JsonSerializerSettings"/>.
         /// </summary>
         /// <typeparam name="T">The type of the object to deserialize to.</typeparam>
-        /// <param name="value">The object to deserialize.</param>
+        /// <param name="json">The object to deserialize.</param>
         /// <param name="settings">The Newtonsoft.Json.JsonSerializerSettings used to deserialize the object. If this is null, default serialization settings will be used.</param>
         /// <returns></returns>
-        public static T Deserialize<T>(string value, JsonSerializerSettings settings)
+        public static T Deserialize<T>(string json, JsonSerializerSettings settings)
         {
-            return JsonConvert.DeserializeObject<T>(value, settings);
+            return JsonConvert.DeserializeObject<T>(json, settings);
         }
 
         /// <summary>
-        /// 反序列化
+        /// Deserializes the JSON property string to the specified .NET type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="json"></param>
-        /// <param name="node">节点名称</param>
+        /// <typeparam name="T">The type of the object to deserialize to.</typeparam>
+        /// <param name="json">The parent object to deserialize.</param>
+        /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
-        public static T Deserialize<T>(string json, string node)
+        public static T Deserialize<T>(string json, string propertyName)
         {
-            return Deserialize<T>(GetPropertyString(json, node));
+            return Deserialize<T>(GetPropertyString(json, propertyName));
         }
 
         /// <summary>
         /// Deserializes the JSON to the given anonymous type.
         /// </summary>
         /// <typeparam name="T">The anonymous type to deserialize to. This can't be specified traditionally and must be inferred from the anonymous type passed as a parameter.</typeparam>
-        /// <param name="value">The JSON to deserialize.</param>
+        /// <param name="json">The JSON to deserialize.</param>
         /// <param name="anonymousTypeObject">The anonymous type object.</param>
         /// <returns></returns>
-        public static T DeserializeAnonymousType<T>(string value, T anonymousTypeObject)
+        public static T DeserializeAnonymousType<T>(string json, T anonymousTypeObject)
         {
-            return JsonConvert.DeserializeAnonymousType(value, anonymousTypeObject);
+            return JsonConvert.DeserializeAnonymousType(json, anonymousTypeObject);
         }
 
         /// <summary>
         /// Deserializes the JSON to the given anonymous type using customized <see cref="JsonSerializerSettings"/>.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the object to deserialize to.</typeparam>
         /// <param name="value">The JSON to deserialize.</param>
         /// <param name="anonymousTypeObject">The anonymous type object.</param>
         /// <param name="settings">The Newtonsoft.Json.JsonSerializerSettings used to deserialize the object. If this is null, default serialization settings will be used.</param>

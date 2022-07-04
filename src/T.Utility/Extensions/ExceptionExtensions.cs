@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace T.Utility.Http
+namespace T.Utility.Extensions
 {
     /// <summary>
     /// 异常处理扩展类

@@ -145,7 +145,7 @@ namespace T.Utility.Http
         /// <param name="context"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        private static HttpRequestContext WithContent(this HttpRequestContext context, string content)
+        public static HttpRequestContext WithContent(this HttpRequestContext context, string content)
         {
             context.Content = new StringContent(content, Encoding.UTF8, "application/json");
             return context;
@@ -159,7 +159,7 @@ namespace T.Utility.Http
         /// <param name="encoding"></param>
         /// <param name="mediaType"></param>
         /// <returns></returns>
-        private static HttpRequestContext WithContent(this HttpRequestContext context, string content, Encoding encoding, string mediaType = "application/json")
+        public static HttpRequestContext WithContent(this HttpRequestContext context, string content, Encoding encoding, string mediaType = "application/json")
         {
             context.Content = new StringContent(content, encoding, mediaType);
             return context;
@@ -171,7 +171,7 @@ namespace T.Utility.Http
         /// <param name="context"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        private static HttpRequestContext WithContent(this HttpRequestContext context, HttpContent content)
+        public static HttpRequestContext WithContent(this HttpRequestContext context, HttpContent content)
         {
             context.Content = content;
             return context;

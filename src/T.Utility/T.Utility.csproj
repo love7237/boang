@@ -10,6 +10,7 @@
     <Version>2.0.2</Version>
     <Description>1、增加哈希和加密工具类
 2、增加序列化工具类</Description>
+    <PackageProjectUrl>https://github.com/love7237/boang</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

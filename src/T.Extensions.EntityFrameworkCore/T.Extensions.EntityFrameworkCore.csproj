@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Description>针对EntityFrameworkCore的应用扩展</Description>
+    <PackageProjectUrl>https://github.com/love7237/boang</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

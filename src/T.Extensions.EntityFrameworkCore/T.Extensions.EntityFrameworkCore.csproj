@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Description>1、增加了继承IEntityTypeConfiguration的泛型IEntityRegister&lt;TEntity&gt;注册接口</Description>
     <PackageProjectUrl>https://github.com/love7237/boang</PackageProjectUrl>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -18,7 +18,7 @@ namespace T.Extensions.EntityFrameworkCore
     /// 数据库实体注册接口
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public interface IEntityRegister<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : class
+    public interface IEntityRegister<TEntity> : IEntityRegister, IEntityTypeConfiguration<TEntity> where TEntity : class
     {
         //
     }

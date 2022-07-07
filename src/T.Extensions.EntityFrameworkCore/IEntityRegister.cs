@@ -13,4 +13,13 @@ namespace T.Extensions.EntityFrameworkCore
         /// <param name="modelBuilder">上下文模型构建器</param>
         void RegistTo(ModelBuilder modelBuilder);
     }
+
+    /// <summary>
+    /// 数据库实体注册接口
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    public interface IEntityRegister<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : class
+    {
+        //
+    }
 }

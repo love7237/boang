@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Description>针对EntityFrameworkCore的应用扩展</Description>
+    <Description>1、增加了继承IEntityTypeConfiguration的泛型IEntityRegister&lt;TEntity&gt;注册接口</Description>
     <PackageProjectUrl>https://github.com/love7237/boang</PackageProjectUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

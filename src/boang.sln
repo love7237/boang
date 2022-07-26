@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "T.Utility", "T.Utility\T.Ut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "T.Extensions.Framework", "T.Extensions.Framework\T.Extensions.Framework.csproj", "{55FE314E-A886-45FE-99A3-D7FEB79FBE68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T.Extensions.EntityFrameworkCore", "T.Extensions.EntityFrameworkCore\T.Extensions.EntityFrameworkCore.csproj", "{0CED4E3C-8AE7-4D44-91CB-A9152D1C4BC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "T.Extensions.EntityFrameworkCore", "T.Extensions.EntityFrameworkCore\T.Extensions.EntityFrameworkCore.csproj", "{0CED4E3C-8AE7-4D44-91CB-A9152D1C4BC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T.WPF", "T.WPF\T.WPF.csproj", "{639745AD-BE92-4FBD-907A-48189D044B48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{0CED4E3C-8AE7-4D44-91CB-A9152D1C4BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CED4E3C-8AE7-4D44-91CB-A9152D1C4BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CED4E3C-8AE7-4D44-91CB-A9152D1C4BC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{639745AD-BE92-4FBD-907A-48189D044B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{639745AD-BE92-4FBD-907A-48189D044B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{639745AD-BE92-4FBD-907A-48189D044B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{639745AD-BE92-4FBD-907A-48189D044B48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

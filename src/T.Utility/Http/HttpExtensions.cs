@@ -79,7 +79,7 @@ namespace T.Utility.Http
         /// <param name="context"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        private static HttpRequestContext WithQueryParams(this HttpRequestContext context, Dictionary<string, object> parameters)
+        public static HttpRequestContext WithQueryParams(this HttpRequestContext context, Dictionary<string, object> parameters)
         {
             if (parameters != null)
             {

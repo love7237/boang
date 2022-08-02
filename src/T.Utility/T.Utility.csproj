@@ -5,10 +5,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Boang</Authors>
     <Company>boang.tech</Company>
-    <AssemblyVersion>2.0.3.0</AssemblyVersion>
-    <FileVersion>2.0.3.0</FileVersion>
-    <Version>2.0.3</Version>
-    <Description>1、扩展Http查询参数设置方式</Description>
+    <AssemblyVersion>2.0.4.0</AssemblyVersion>
+    <FileVersion>2.0.4.0</FileVersion>
+    <Version>2.0.4</Version>
+    <Description>1、修改了Http请求失败时的提示信息</Description>
     <PackageProjectUrl>https://github.com/love7237/boang</PackageProjectUrl>
   </PropertyGroup>
 

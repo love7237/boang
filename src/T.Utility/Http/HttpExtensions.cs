@@ -296,8 +296,8 @@ namespace T.Utility.Http
                             {
                                 string message = await response.Content.ReadAsStringAsync();
                                 message = string.IsNullOrWhiteSpace(message)
-                                    ? $"http request failed with status code {(int)response.StatusCode}"
-                                    : $"http request failed with status code {(int)response.StatusCode} and error message '{message}'";
+                                    ? $"http request failed ({(int)response.StatusCode})"
+                                    : $"http request failed ({(int)response.StatusCode}) with error message : {message}";
                                 httpResult.Exception = new Exception(message);
 
                                 break;

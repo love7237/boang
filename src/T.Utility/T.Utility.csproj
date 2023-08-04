@@ -5,10 +5,15 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Boang</Authors>
     <Company>boang.tech</Company>
-    <AssemblyVersion>2.0.5.0</AssemblyVersion>
-    <FileVersion>2.0.5.0</FileVersion>
-    <Version>2.0.5</Version>
-    <Description>1、HTTP请求失败的异常信息微调</Description>
+    <AssemblyVersion>2.0.8.0</AssemblyVersion>
+    <FileVersion>2.0.8.0</FileVersion>
+    <Version>2.0.8</Version>
+    <Description>2.0.8
+1、修复了取JSON子串多双引号的问题
+
+2.0.7
+1、增加StatusCodeException标识HTTP响应状态非2xx
+2、移除从动态类型解析查询参数的HTTP扩展</Description>
     <PackageProjectUrl>https://github.com/love7237/boang</PackageProjectUrl>
   </PropertyGroup>
 

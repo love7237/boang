@@ -16,7 +16,7 @@ namespace T.Utility.Http
     public static class HttpExtensions
     {
         /// <summary>
-        /// 设置请求基础地址
+        /// 设置请求基址
         /// </summary>
         /// <param name="httpClient"></param>
         /// <param name="uriString"></param>
@@ -32,7 +32,7 @@ namespace T.Utility.Http
         }
 
         /// <summary>
-        /// 增加请求路径段
+        /// 追加请求路径
         /// </summary>
         /// <param name="context"></param>
         /// <param name="segments"></param>
@@ -46,55 +46,6 @@ namespace T.Utility.Http
                 foreach (var segment in segments)
                 {
                     context.Segments.Add(segment.Trim('/').Trim('\\'));
-                }
-            }
-
-            return context;
-        }
-
-        /// <summary>
-        /// 设置请求头部信息
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static HttpRequestContext WithQueryParams(this HttpRequestContext context, object obj)
-        {
-            var parameters = new Dictionary<string, object>();
-
-            foreach (var property in obj.GetType().GetProperties())
-            {
-                string key = property.Name;
-                object value = property.GetValue(obj);
-
-                parameters.Add(key, value);
-            }
-
-            return context.WithQueryParams(parameters);
-        }
-
-        /// <summary>
-        /// 设置请求头部信息
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public static HttpRequestContext WithQueryParams(this HttpRequestContext context, Dictionary<string, object> parameters)
-        {
-            if (parameters != null)
-            {
-                context.QueryParams = context.QueryParams ?? new Dictionary<string, object>();
-
-                foreach (var key in parameters.Keys)
-                {
-                    if (context.QueryParams.ContainsKey(key))
-                    {
-                        context.QueryParams[key] = parameters[key];
-                    }
-                    else
-                    {
-                        context.QueryParams.Add(key, parameters[key]);
-                    }
                 }
             }
 
@@ -140,6 +91,34 @@ namespace T.Utility.Http
         }
 
         /// <summary>
+        /// 设置查询参数信息
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static HttpRequestContext WithQueryParams(this HttpRequestContext context, Dictionary<string, object> parameters)
+        {
+            if (parameters != null)
+            {
+                context.QueryParams = context.QueryParams ?? new Dictionary<string, object>();
+
+                foreach (var key in parameters.Keys)
+                {
+                    if (context.QueryParams.ContainsKey(key))
+                    {
+                        context.QueryParams[key] = parameters[key];
+                    }
+                    else
+                    {
+                        context.QueryParams.Add(key, parameters[key]);
+                    }
+                }
+            }
+
+            return context;
+        }
+
+        /// <summary>
         /// 设置<see cref="StringContent" />类型的请求体(默认 application/json; charset=utf-8)
         /// </summary>
         /// <param name="context"></param>
@@ -147,7 +126,10 @@ namespace T.Utility.Http
         /// <returns></returns>
         public static HttpRequestContext WithContent(this HttpRequestContext context, string content)
         {
-            context.Content = new StringContent(content, Encoding.UTF8, "application/json");
+            if (content != null)
+            {
+                context.Content = new StringContent(content, Encoding.UTF8, "application/json");
+            }
             return context;
         }
 
@@ -161,7 +143,10 @@ namespace T.Utility.Http
         /// <returns></returns>
         public static HttpRequestContext WithContent(this HttpRequestContext context, string content, Encoding encoding, string mediaType = "application/json")
         {
-            context.Content = new StringContent(content, encoding, mediaType);
+            if (content != null)
+            {
+                context.Content = new StringContent(content, encoding, mediaType);
+            }
             return context;
         }
 
@@ -173,7 +158,10 @@ namespace T.Utility.Http
         /// <returns></returns>
         public static HttpRequestContext WithContent(this HttpRequestContext context, HttpContent content)
         {
-            context.Content = content;
+            if (content != null)
+            {
+                context.Content = content;
+            }
             return context;
         }
 
@@ -241,7 +229,7 @@ namespace T.Utility.Http
         /// <summary>
         /// 获取指定格式的响应信息
         /// </summary>
-        /// <typeparam name="T">泛型(string、byte[]、MemoryStream)</typeparam>
+        /// <typeparam name="T">泛型(string、byte[]、Stream)</typeparam>
         /// <param name="context"></param>
         /// <param name="cts"></param>
         /// <param name="attempts"></param>
@@ -281,25 +269,19 @@ namespace T.Utility.Http
                                 {
                                     bytesHttpResult.Response.Content = await response.Content.ReadAsByteArrayAsync();
                                 }
-                                else if (httpResult is HttpResult<MemoryStream> streamHttpResult)
+                                else if (httpResult is HttpResult<Stream> streamHttpResult)
                                 {
-                                    using (var stream = await response.Content.ReadAsStreamAsync())
-                                    {
-                                        var memoryStream = new MemoryStream();
-                                        await stream.CopyToAsync(memoryStream);
-
-                                        streamHttpResult.Response.Content = memoryStream;
-                                    }
+                                    streamHttpResult.Response.Content = await response.Content.ReadAsStreamAsync();
                                 }
                             }
                             else
                             {
                                 string message = await response.Content.ReadAsStringAsync();
-                                message = string.IsNullOrWhiteSpace(message)
-                                    ? $"http request failed ({(int)response.StatusCode})"
-                                    : $"http request failed ({(int)response.StatusCode}) with error message : {message}";
-                                httpResult.Exception = new Exception(message);
-
+                                if (string.IsNullOrWhiteSpace(message))
+                                {
+                                    message = ((int)response.StatusCode).ToString();
+                                }
+                                httpResult.Exception = new StatusCodeException(message);
                                 break;
                             }
                         }
@@ -358,11 +340,11 @@ namespace T.Utility.Http
         /// <param name="cts"></param>
         /// <param name="attempts"></param>
         /// <returns></returns>
-        public static async Task<HttpResult<MemoryStream>> GetStreamAsync(this HttpRequestContext context, CancellationTokenSource cts = null, int attempts = 1)
+        public static async Task<HttpResult<Stream>> GetStreamAsync(this HttpRequestContext context, CancellationTokenSource cts = null, int attempts = 1)
         {
             context.Method = HttpMethod.Get;
 
-            return await context.GetResponseAsync<MemoryStream>(cts, attempts);
+            return await context.GetResponseAsync<Stream>(cts, attempts);
         }
 
         /// <summary>

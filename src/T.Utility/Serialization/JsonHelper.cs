@@ -51,6 +51,27 @@ namespace T.Utility.Serialization
         }
 
         /// <summary>
+        /// Deserializes the JSON to a .NET object.
+        /// </summary>
+        /// <param name="json">The JSON to deserialize.</param>
+        /// <returns>The deserialized object from the JSON string.</returns>
+        public static object Deserialize(string json)
+        {
+            return JsonConvert.DeserializeObject(json);
+        }
+
+        /// <summary>
+        /// Deserializes the JSON to a .NET object using <see cref="JsonSerializerSettings"/>.
+        /// </summary>
+        /// <param name="json">The JSON to deserialize.</param>
+        /// <param name="settings">The <see cref="JsonSerializerSettings"/> used to deserialize the object. If this is null, default serialization settings will be used.</param>
+        /// <returns>The deserialized object from the JSON string.</returns>
+        public static object DeserializeObject(string json, JsonSerializerSettings settings)
+        {
+            return JsonConvert.DeserializeObject(json, settings);
+        }
+
+        /// <summary>
         /// Deserializes the JSON to the specified .NET type.
         /// </summary>
         /// <typeparam name="T">The type of the object to deserialize to.</typeparam>
@@ -115,11 +136,10 @@ namespace T.Utility.Serialization
         /// </summary>
         /// <param name="json">The JSON string.</param>
         /// <param name="propertyName">Name of the property.</param>
-        /// <param name="indented">Causes child objects to be indented.</param>
         /// <returns></returns>
-        public static string GetPropertyString(string json, string propertyName, bool indented = false)
+        public static string GetPropertyString(string json, string propertyName)
         {
-            return JObject.Parse(json).GetValue(propertyName).ToString(indented ? Newtonsoft.Json.Formatting.Indented : Newtonsoft.Json.Formatting.None);
+            return JObject.Parse(json).GetValue(propertyName).ToString();
         }
 
         /// <summary>

@@ -2,12 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
-    <Version>1.1.1</Version>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
+    <FileVersion>1.1.2.0</FileVersion>
+    <Version>1.1.2</Version>
     <Authors>boang</Authors>
     <Company>boang.tech</Company>
-    <Description>1.1.0
+    <Description>1.1.2
+1、增加车辆尺寸定义
+
+1.1.0
 1、增加泊位质量定义
 
 1.0.9

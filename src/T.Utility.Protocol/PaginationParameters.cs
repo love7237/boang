@@ -70,25 +70,25 @@ namespace T.Utility.Protocol
         /// <summary>
         /// 页码
         /// </summary>
-        [DataMember(Name = "pageNumber")]
+        [DataMember(Name = "pageNumber", Order = 1)]
         public int PageNumber { get; set; }
 
         /// <summary>
         /// 分页大小
         /// </summary>
-        [DataMember(Name = "pageSize")]
+        [DataMember(Name = "pageSize", Order = 2)]
         public int PageSize { get; set; }
 
         /// <summary>
         /// 记录总数
         /// </summary>
-        [DataMember(Name = "totalItems")]
+        [DataMember(Name = "totalItems", Order = 3)]
         public int TotalItems { get; set; }
 
         /// <summary>
         /// 分页数据集合
         /// </summary>
-        [DataMember(Name = "pageItems")]
+        [DataMember(Name = "pageItems", Order = 4)]
         public ICollection<T> PageItems { get; set; }
 
         /// <summary>

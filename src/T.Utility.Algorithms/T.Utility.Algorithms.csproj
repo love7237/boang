@@ -4,20 +4,12 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>boang</Authors>
     <Company>boang.tech</Company>
-    <Description>1.0.4
-1、增加注释，增加目标区域辅助解析
-
-1.0.2
-1、增加按需取图接口封装
-
-1.0.1
-1、泊位历史状态接口原外网封装版本兼容
-
-1.0.0
-1、车牌识别、九类检测、车型识别、泊位高点映射、泊位历史状态服务接口封装</Description>
-    <Version>1.0.5</Version>
-    <AssemblyVersion>1.0.5.0</AssemblyVersion>
-    <FileVersion>1.0.5.0</FileVersion>
+    <Description>1.0.6
+1、增加车头车尾矫正接口封装</Description>
+    <Version>1.0.6</Version>
+    <AssemblyVersion>1.0.6.0</AssemblyVersion>
+    <FileVersion>1.0.6.0</FileVersion>
+    <AnalysisLevel>none</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

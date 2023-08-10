@@ -80,13 +80,6 @@ namespace T.Utility.Algorithms
                                 Cover = item.Cover,
                                 Points = item.Points
                             });
-
-                            //
-                            var content = await CorrectCarFaceAsync(oprNum, imgSource, imgType, item.Points);
-                            if (content.State == 200)
-                            {
-                                var sss = await GetFaceModelAsync(oprNum, content.Value.FaceImgSource, ImageType.Base64, null);
-                            }
                         }
 
                         return response;
@@ -502,7 +495,7 @@ namespace T.Utility.Algorithms
         #region 车型识别
 
         /// <summary>
-        /// 获取图像中车脸区域的车型识别结果(使用矫正的车脸图时，车脸区域应为<see cref="null"/>)
+        /// 获取图像中车脸区域的车型识别结果(使用矫正的车脸图时，车脸区域应为null/>)
         /// </summary>
         /// <param name="oprNum"></param>
         /// <param name="imgSource"></param>

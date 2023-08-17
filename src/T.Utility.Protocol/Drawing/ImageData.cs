@@ -1,16 +1,15 @@
 ﻿using System.Runtime.Serialization;
-using T.Utility.Protocol;
 
-namespace T.Test.WebApi.Models
+namespace T.Utility.Protocol
 {
     /// <summary>
-    /// 算法请求基类
+    /// 图像数据封装
     /// </summary>
     [DataContract]
-    public class AlgorithmRequest
+    public class ImageData
     {
         /// <summary>
-        /// 图像数据类型
+        /// 数据类型
         /// </summary>
         [DataMember(Name = "imgType")]
         public ImageType ImageType { get; set; }

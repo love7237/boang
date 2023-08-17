@@ -71,16 +71,16 @@ namespace T.Test.WebApi.Controllers
         /// <summary>
         /// 上传object文件
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("object/put")]
-        public async Task<ActionContent<string>> PutObject(AlgorithmRequest request)
+        public async Task<ActionContent<string>> PutObject(ImageData data)
         {
             byte[] bytes = null;
 
-            if (request.ImageType == ImageType.Url)
+            if (data.ImageType == ImageType.Url)
             {
-                var result = await _ossHelper.ProxyDownload(request.ImageSource);
+                var result = await _ossHelper.ProxyDownload(data.ImageSource);
                 if (result.State == 200 && result.Value != null)
                 {
                     bytes = result.Value;
@@ -88,7 +88,7 @@ namespace T.Test.WebApi.Controllers
             }
             else
             {
-                bytes = Convert.FromBase64String(request.ImageSource);
+                bytes = Convert.FromBase64String(data.ImageSource);
             }
 
             if (bytes != null)
@@ -124,16 +124,16 @@ namespace T.Test.WebApi.Controllers
         /// <summary>
         /// 代理下载
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("proxy/download")]
-        public async Task<ActionResult> ProxyDownload(AlgorithmRequest request)
+        public async Task<ActionResult> ProxyDownload(ImageData data)
         {
             byte[] bytes = null;
 
-            if (request.ImageType == ImageType.Url)
+            if (data.ImageType == ImageType.Url)
             {
-                var result = await _ossHelper.ProxyDownload(request.ImageSource);
+                var result = await _ossHelper.ProxyDownload(data.ImageSource);
                 if (result.State == 200 && result.Value != null)
                 {
                     bytes = result.Value;
@@ -141,12 +141,12 @@ namespace T.Test.WebApi.Controllers
             }
             else
             {
-                bytes = Convert.FromBase64String(request.ImageSource);
+                bytes = Convert.FromBase64String(data.ImageSource);
             }
 
             if (bytes != null)
             {
-                return File(bytes, "application/octet-stream", request.ImageSource.Split('/').Last());
+                return File(bytes, "application/octet-stream", data.ImageSource.Split('/').Last());
             }
             else
             {

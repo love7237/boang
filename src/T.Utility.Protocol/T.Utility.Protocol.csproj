@@ -2,19 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.1.2.0</AssemblyVersion>
-    <FileVersion>1.1.2.0</FileVersion>
-    <Version>1.1.2</Version>
+    <AssemblyVersion>1.1.4.0</AssemblyVersion>
+    <FileVersion>1.1.4.0</FileVersion>
+    <Version>1.1.4</Version>
     <Authors>boang</Authors>
     <Company>boang.tech</Company>
-    <Description>1.1.2
-1、增加车辆尺寸定义
-
-1.1.0
-1、增加泊位质量定义
-
-1.0.9
-1、ActionContent增加构造函数赋值方法</Description>
+    <Description>1.1.4
+1、增加图像数据封装</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

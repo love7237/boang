@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\T.Utility.Algorithms\T.Utility.Algorithms.csproj" />
     <ProjectReference Include="..\T.Utility.OSS\T.Utility.OSS.csproj" />
+    <ProjectReference Include="..\T.Utility.Protocol\T.Utility.Protocol.csproj" />
     <ProjectReference Include="..\T.Utility.Snowflake\T.Utility.Snowflake.csproj" />
   </ItemGroup>
 

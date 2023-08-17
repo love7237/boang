@@ -28,34 +28,34 @@ namespace T.Test.WebApi.Controllers
         /// <summary>
         /// 车牌识别
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("lpc/plate/ocr")]
-        public async Task<ActionContent<List<PlateOcrContent>>> OcrPlatesAsync(AlgorithmRequest request)
+        public async Task<ActionContent<List<PlateOcrContent>>> OcrPlatesAsync(ImageData data)
         {
-            return await _algorithmHttpClient.OcrPlatesAsync(Guid.NewGuid().ToString(), request.ImageSource, request.ImageType);
+            return await _algorithmHttpClient.OcrPlatesAsync(Guid.NewGuid().ToString(), data.ImageSource, data.ImageType);
         }
 
         /// <summary>
         /// 九类检测
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("ai/multidetect/multiDetect")]
-        public async Task<ActionContent<List<MulticlassContent>>> DetectObjectsAsync(AlgorithmRequest request)
+        public async Task<ActionContent<List<MulticlassContent>>> DetectObjectsAsync(ImageData data)
         {
-            return await _algorithmHttpClient.DetectObjectsAsync(Guid.NewGuid().ToString(), request.ImageSource, request.ImageType);
+            return await _algorithmHttpClient.DetectObjectsAsync(Guid.NewGuid().ToString(), data.ImageSource, data.ImageType);
         }
 
         /// <summary>
         /// 车型识别
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("ai/carmodel/carmodel")]
-        public async Task<ActionContent<List<CarModelExtendContent>>> DetectModelsAsync(AlgorithmRequest request)
+        public async Task<ActionContent<List<CarModelExtendContent>>> DetectModelsAsync(ImageData data)
         {
-            return await _algorithmHttpClient.DetectModelsAsync(Guid.NewGuid().ToString(), request.ImageSource, request.ImageType);
+            return await _algorithmHttpClient.DetectModelsAsync(Guid.NewGuid().ToString(), data.ImageSource, data.ImageType);
         }
 
         /// <summary>

@@ -318,9 +318,9 @@ namespace T.Utility.Algorithms
         /// <param name="oprNum"></param>
         /// <param name="imgSource"></param>
         /// <param name="imgType"></param>
-        /// <param name="inpRect">目标区域</param>
+        /// <param name="tgtRect">目标区域</param>
         /// <returns></returns>
-        public async Task<ActionContent<MulticlassContent>> DetectObjectAsync(string oprNum, string imgSource, ImageType imgType, Rectangle inpRect)
+        public async Task<ActionContent<MulticlassContent>> DetectObjectAsync(string oprNum, string imgSource, ImageType imgType, Rectangle tgtRect)
         {
             try
             {
@@ -335,17 +335,17 @@ namespace T.Utility.Algorithms
                 MulticlassContent maxIouObject = null;
                 double maxIou = 0.0;
 
-                double inpRectSize = inpRect.Width * inpRect.Height;
+                double tgtRectSize = tgtRect.Width * tgtRect.Height;
 
                 foreach (var obj in response.Value)
                 {
                     var rect = new Rectangle() { X = obj.Points[0], Y = obj.Points[1], Width = obj.Points[2] - obj.Points[0], Height = obj.Points[3] - obj.Points[1] };
                     double rectSize = rect.Width * rect.Height;
 
-                    var intersectRect = Rectangle.Intersect(inpRect, rect);
+                    var intersectRect = Rectangle.Intersect(tgtRect, rect);
 
                     double isize = intersectRect.Size.Width * intersectRect.Size.Height;
-                    double usize = inpRectSize + rectSize - isize;
+                    double usize = tgtRectSize + rectSize - isize;
 
                     double iou = isize / usize;
                     if (iou > maxIou)
@@ -371,9 +371,9 @@ namespace T.Utility.Algorithms
         /// <param name="imgSource"></param>
         /// <param name="imgType"></param>
         /// <param name="labels">类型列表</param>
-        /// <param name="inpRect">目标区域</param>
+        /// <param name="tgtRect">目标区域</param>
         /// <returns></returns>
-        public async Task<ActionContent<MulticlassContent>> DetectObjectAsync(string oprNum, string imgSource, ImageType imgType, List<MulticlassType> labels, Rectangle inpRect)
+        public async Task<ActionContent<MulticlassContent>> DetectObjectAsync(string oprNum, string imgSource, ImageType imgType, List<MulticlassType> labels, Rectangle tgtRect)
         {
             try
             {
@@ -388,17 +388,17 @@ namespace T.Utility.Algorithms
                 MulticlassContent maxIouObject = null;
                 double maxIou = 0.0;
 
-                double inpRectSize = inpRect.Width * inpRect.Height;
+                double tgtRectSize = tgtRect.Width * tgtRect.Height;
 
                 foreach (var obj in response.Value)
                 {
                     var rect = new Rectangle() { X = obj.Points[0], Y = obj.Points[1], Width = obj.Points[2] - obj.Points[0], Height = obj.Points[3] - obj.Points[1] };
                     double rectSize = rect.Width * rect.Height;
 
-                    var intersectRect = Rectangle.Intersect(inpRect, rect);
+                    var intersectRect = Rectangle.Intersect(tgtRect, rect);
 
                     double isize = intersectRect.Size.Width * intersectRect.Size.Height;
-                    double usize = inpRectSize + rectSize - isize;
+                    double usize = tgtRectSize + rectSize - isize;
 
                     double iou = isize / usize;
                     if (iou > maxIou)
@@ -502,7 +502,7 @@ namespace T.Utility.Algorithms
         /// <param name="imgType"></param>
         /// <param name="faceRect">车脸区域</param>
         /// <returns></returns>
-        private async Task<ActionContent<CarModelSimpleContent>> GetFaceModelAsync(string oprNum, string imgSource, ImageType imgType, Rectangle? faceRect)
+        public async Task<ActionContent<CarModelSimpleContent>> GetFaceModelAsync(string oprNum, string imgSource, ImageType imgType, Rectangle? faceRect)
         {
             try
             {
@@ -608,8 +608,6 @@ namespace T.Utility.Algorithms
 
                         actionContent.Value.Add(content);
                     }
-
-
                 }
 
                 return actionContent;
@@ -627,9 +625,9 @@ namespace T.Utility.Algorithms
         /// <param name="oprNum"></param>
         /// <param name="imgSource"></param>
         /// <param name="imgType"></param>
-        /// <param name="inpRect">目标区域</param>
+        /// <param name="tgtRect">目标区域</param>
         /// <returns></returns>
-        public async Task<ActionContent<CarModelExtendContent>> DetectModelAsync(string oprNum, string imgSource, ImageType imgType, Rectangle inpRect)
+        public async Task<ActionContent<CarModelExtendContent>> DetectModelAsync(string oprNum, string imgSource, ImageType imgType, Rectangle tgtRect)
         {
             try
             {
@@ -640,7 +638,7 @@ namespace T.Utility.Algorithms
                     return new ActionContent<CarModelExtendContent>(500, "未配置<车型识别>算法服务信息");
                 }
 
-                var response = await DetectObjectAsync(oprNum, imgSource, imgType, new List<MulticlassType>() { MulticlassType.head, MulticlassType.tail }, inpRect);
+                var response = await DetectObjectAsync(oprNum, imgSource, imgType, new List<MulticlassType>() { MulticlassType.head, MulticlassType.tail }, tgtRect);
 
                 if (response.State != 200)
                 {

@@ -5,16 +5,19 @@ namespace T.Utility.Protocol
     /// <summary>
     /// 图像上的点信息
     /// </summary>
+    [DataContract]
     public class ImagePoint
     {
         /// <summary>
         /// Gets or sets the x-coordinate of this Point.
         /// </summary>
+        [DataMember(Name = "x")]
         public int X { get; set; }
 
         /// <summary>
         /// Gets or sets the y-coordinate of this Point.
         /// </summary>
+        [DataMember(Name = "y")]
         public int Y { get; set; }
 
         /// <summary>

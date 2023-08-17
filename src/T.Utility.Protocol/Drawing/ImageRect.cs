@@ -1,28 +1,35 @@
-﻿namespace T.Utility.Protocol
+﻿using System.Runtime.Serialization;
+
+namespace T.Utility.Protocol
 {
     /// <summary>
     /// 图像的矩形信息
     /// </summary>
+    [DataContract]
     public class ImageRect
     {
         /// <summary>
         /// Gets the x-coordinate of the left edge of this Rect structure.
         /// </summary>
+        [DataMember(Name = "left")]
         public int Left { get; set; }
 
         /// <summary>
         /// Gets the y-coordinate of the top edge of this Rect structure.
         /// </summary>
+        [DataMember(Name = "top")]
         public int Top { get; set; }
 
         /// <summary>
         /// Gets the x-coordinate that is the sum of Rect.X property of this Rect structure.
         /// </summary>
+        [DataMember(Name = "right")]
         public int Right { get; set; }
 
         /// <summary>
         /// Gets the y-coordinate that is the sum of the Rect.Y property of this Rect structure.
         /// </summary>
+        [DataMember(Name = "bottom")]
         public int Bottom { get; set; }
 
         /// <summary>

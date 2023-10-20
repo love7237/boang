@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using T.Test.WebApi.Models;
 using T.Utility.Algorithms;
 using T.Utility.Protocol;
-using T.Utility.Snowflake;
 
 namespace T.Test.WebApi.Controllers
 {
@@ -16,13 +16,11 @@ namespace T.Test.WebApi.Controllers
     {
         private readonly ILogger<AlgorithmController> _logger;
         private readonly AlgorithmHttpClient _algorithmHttpClient;
-        private readonly SnowflakeHelper _snowflakeHelper;
 
-        public AlgorithmController(ILogger<AlgorithmController> logger, AlgorithmHttpClient algorithmHttpClient, SnowflakeHelper snowflakeHelper)
+        public AlgorithmController(ILogger<AlgorithmController> logger, AlgorithmHttpClient algorithmHttpClient)
         {
             _logger = logger;
             _algorithmHttpClient = algorithmHttpClient;
-            _snowflakeHelper = snowflakeHelper;
         }
 
         /// <summary>
@@ -42,20 +40,49 @@ namespace T.Test.WebApi.Controllers
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("ai/multidetect/multiDetect")]
-        public async Task<ActionContent<List<MulticlassContent>>> DetectObjectsAsync(ImageData data)
+        public async Task<ActionContent<List<MulticlassContent>>> MultiDetectObjectsAsync(ImageData data)
         {
             return await _algorithmHttpClient.DetectObjectsAsync(Guid.NewGuid().ToString(), data.ImageSource, data.ImageType);
         }
 
         /// <summary>
-        /// 车型识别
+        /// 基于九类检测的车型识别
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        [HttpPost("ai/carmodel/carmodel")]
-        public async Task<ActionContent<List<CarModelExtendContent>>> DetectModelsAsync(ImageData data)
+        [HttpPost("ai/multidetect/carmodels")]
+        public async Task<ActionContent<List<CarModelExtendContent>>> MultiDetectModelsAsync(ImageData data)
         {
             return await _algorithmHttpClient.DetectModelsAsync(Guid.NewGuid().ToString(), data.ImageSource, data.ImageType);
+        }
+
+        /// <summary>
+        /// 基于车牌顶点的车脸矫正
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("ai/multidetect/carFaceByPlatePoints")]
+        public async Task<ActionContent<CarFaceCorrectContent>> CarFaceCorrectAsync(FaceCorrectRequest request)
+        {
+            return await _algorithmHttpClient.CorrectCarFaceAsync(Guid.NewGuid().ToString(), request.ImageSource, request.ImageType, request.PlatePoints);
+        }
+
+        /// <summary>
+        /// 基于矫正的车脸图或指定九类检测车脸区域的特写图的车型识别
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("ai/carmodel/carmodel")]
+        public async Task<ActionContent<CarModelSimpleContent>> CarFaceModelAsync(FaceModelRequest request)
+        {
+            Rectangle? rectangle = null;
+
+            if (request.FacePoints != null && request.FacePoints.Count == 4)
+            {
+                rectangle = new Rectangle(request.FacePoints[0], request.FacePoints[1], request.FacePoints[2] - request.FacePoints[0], request.FacePoints[3] - request.FacePoints[1]);
+            }
+
+            return await _algorithmHttpClient.GetFaceModelAsync(Guid.NewGuid().ToString(), request.ImageSource, request.ImageType, rectangle);
         }
 
         /// <summary>

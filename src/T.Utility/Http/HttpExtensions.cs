@@ -389,5 +389,20 @@ namespace T.Utility.Http
             return await context.GetResponseAsync<string>(cts, attempts);
         }
 
+        /// <summary>
+        /// Send a request to the specified Uri and return the response body as a string in an asynchronous operation.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="method"></param>
+        /// <param name="cts"></param>
+        /// <param name="attempts"></param>
+        /// <returns></returns>
+        public static async Task<HttpResult<string>> SendAsync(this HttpRequestContext context, HttpMethod method, CancellationTokenSource cts = null, int attempts = 1)
+        {
+            context.Method = method;
+
+            return await context.GetResponseAsync<string>(cts, attempts);
+        }
+
     }
 }

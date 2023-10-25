@@ -7,8 +7,11 @@
     <Company>boang.tech</Company>
     <AssemblyVersion>2.0.8.0</AssemblyVersion>
     <FileVersion>2.0.8.0</FileVersion>
-    <Version>2.0.9</Version>
-    <Description>2.0.9
+    <Version>2.1.0</Version>
+    <Description>2.1.0
+1、HttpExtensions方法扩展
+
+2.0.9
 1、增加LongToStringConverter转换器
 
 2.0.8

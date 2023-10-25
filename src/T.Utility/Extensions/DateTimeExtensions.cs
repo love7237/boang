@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace T.Utility.Extensions
 {
@@ -45,6 +46,32 @@ namespace T.Utility.Extensions
         public static DateTime FromUnixTimeMilliseconds(long unixTime)
         {
             return DateTimeOffset.FromUnixTimeMilliseconds(unixTime).LocalDateTime;
+        }
+
+        /// <summary>
+        /// Returns the maximum DateTime in a generic sequence.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static DateTime Max(params DateTime[] list)
+        {
+            if (list == null || list.Length == 0)
+                throw new ArgumentNullException("The sequence of values is empty");
+
+            return list.Max();
+        }
+
+        /// <summary>
+        /// Returns the minimum value in a generic sequence.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static DateTime Min(params DateTime[] list)
+        {
+            if (list == null || list.Length == 0)
+                throw new ArgumentNullException("The sequence of values is empty");
+
+            return list.Min();
         }
     }
 }

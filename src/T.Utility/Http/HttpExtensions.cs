@@ -200,7 +200,7 @@ namespace T.Utility.Http
                     {
                         request.Headers.Remove(key);
                     }
-                    request.Headers.Add(key, context.Headers[key].ToString());
+                    request.Headers.TryAddWithoutValidation(key, context.Headers[key].ToString());
                 }
             }
 

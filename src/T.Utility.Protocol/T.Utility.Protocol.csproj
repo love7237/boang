@@ -2,16 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.1.5.0</AssemblyVersion>
-    <FileVersion>1.1.5.0</FileVersion>
-    <Version>1.1.5</Version>
+    <AssemblyVersion>1.1.6.0</AssemblyVersion>
+    <FileVersion>1.1.6.0</FileVersion>
+    <Version>1.1.6</Version>
     <Authors>boang</Authors>
     <Company>boang.tech</Company>
-    <Description>1.1.5
-1、扩展设备子类型
-
-1.1.4
-1、增加图像数据封装</Description>
+    <Description>1.1.6
+1、扩展 ActionContent 的初始化方法(HttpStatusCode)</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

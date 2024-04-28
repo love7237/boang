@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Net;
+using System.Runtime.Serialization;
 
 namespace T.Utility.Protocol
 {
@@ -45,6 +46,27 @@ namespace T.Utility.Protocol
             this.State = state;
             this.Desc = desc ?? string.Empty;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionContent"/> class with the specified parameters.
+        /// </summary>
+        /// <param name="statusCode"></param>
+        public ActionContent(HttpStatusCode statusCode)
+        {
+            this.State = (int)statusCode;
+            this.Desc = string.Empty;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionContent"/> class with the specified parameters.
+        /// </summary>
+        /// <param name="statusCode"></param>
+        /// <param name="desc"></param>
+        public ActionContent(HttpStatusCode statusCode, string desc)
+        {
+            this.State = (int)statusCode;
+            this.Desc = desc ?? string.Empty;
+        }
     }
 
     /// <summary>
@@ -84,6 +106,30 @@ namespace T.Utility.Protocol
         /// <param name="desc"></param>
         /// <param name="value"></param>
         public ActionContent(int state, string desc, T value) : base(state, desc)
+        {
+            this.Value = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionContent"/> class with the specified parameters.
+        /// </summary>
+        /// <param name="statusCode"></param>
+        public ActionContent(HttpStatusCode statusCode) : base(statusCode) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionContent"/> class with the specified parameters.
+        /// </summary>
+        /// <param name="statusCode"></param>
+        /// <param name="desc"></param>
+        public ActionContent(HttpStatusCode statusCode, string desc) : base(statusCode, desc) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionContent"/> class with the specified parameters.
+        /// </summary>
+        /// <param name="statusCode"></param>
+        /// <param name="desc"></param>
+        /// <param name="value"></param>
+        public ActionContent(HttpStatusCode statusCode, string desc, T value) : base(statusCode, desc)
         {
             this.Value = value;
         }

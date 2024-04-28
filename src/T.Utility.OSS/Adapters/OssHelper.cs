@@ -208,32 +208,6 @@ namespace T.Utility.OSS
         /// <summary>
         /// Gets the network address from a file based oss url
         /// </summary>
-        /// <param name="fileUrl">A url start with file, such as: file://bucket/.../name.jpg</param>
-        /// <param name="networkUrl"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public bool TryDecodeUrl(string fileUrl, out string networkUrl)
-        {
-            try
-            {
-                if (_settings.Adapter == Adapter.File && fileUrl.StartsWith("file://"))
-                {
-                    networkUrl = $"{_settings.Endpoint.TrimEnd('/')}/{fileUrl.Replace(":/", "")}";
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "地址转换失败");
-            }
-
-            networkUrl = fileUrl;
-            return false;
-        }
-
-        /// <summary>
-        /// Gets the network address from a file based oss url
-        /// </summary>
         /// <param name="fileUrl">a file based oss url, such as: file://bucket/.../xxx.jpg</param>
         /// <returns>Returns the wrapped network address, such as: http://.../file/bucket/.../xxx.jpg</returns>
         public string GetNetworkUrl(string fileUrl)
@@ -274,6 +248,8 @@ namespace T.Utility.OSS
                         }
                     }
                 }
+
+
 
                 var httpResult = await _httpClient.SetBaseUri(url).GetByteArrayAsync();
                 if (httpResult.IsSuccess)

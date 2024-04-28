@@ -4,8 +4,10 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>boang</Authors>
     <Company>boang.tech</Company>
-    <Description>1.0.7
-1、增加车头车尾矫正图车型识别接口封装</Description>
+    <Description>
+      1.0.7
+      1、增加车头车尾矫正图车型识别接口封装
+    </Description>
     <Version>1.0.7</Version>
     <AssemblyVersion>1.0.7.0</AssemblyVersion>
     <FileVersion>1.0.7.0</FileVersion>
@@ -19,8 +21,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
-    <PackageReference Include="T.Utility" Version="2.0.8" />
-    <PackageReference Include="T.Utility.Protocol" Version="1.1.1" />
+    <PackageReference Include="T.Utility" Version="2.1.1" />
+    <PackageReference Include="T.Utility.Protocol" Version="1.1.5" />
   </ItemGroup>
 
 </Project>

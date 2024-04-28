@@ -21,5 +21,15 @@ namespace T.Utility.Algorithms
         /// 服务地址
         /// </summary>
         public string Url { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string AppKey { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Secret { get; set; }
     }
 }

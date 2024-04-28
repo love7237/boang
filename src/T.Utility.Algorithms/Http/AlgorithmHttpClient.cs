@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using T.Utility.Extensions;
 using T.Utility.Http;
 using T.Utility.Protocol;
+using T.Utility.Security;
 using T.Utility.Serialization;
 
 namespace T.Utility.Algorithms
@@ -35,6 +36,30 @@ namespace T.Utility.Algorithms
             _algorithmServices = options.Value;
         }
 
+        /// <summary>
+        /// 获取身份认证请求头
+        /// </summary>
+        /// <param name="appkey"></param>
+        /// <param name="secret"></param>
+        /// <returns></returns>
+        private Dictionary<string, object> GetAuthorizationHeaders(string appkey, string secret)
+        {
+            var headers = new Dictionary<string, object>();
+
+            if (!string.IsNullOrWhiteSpace(appkey) && !string.IsNullOrWhiteSpace(secret))
+            {
+                long timestamp = DateTime.Now.ToUnixTimeMilliseconds();
+                string sign = HashHelper.Md5($"{appkey}&{secret}&{timestamp}&ZHHT");
+
+                dynamic signature = new { appkey, sign, timestamp };
+
+                string value = JsonHelper.Serialize(signature);
+                headers.Add("Authorization", value);
+            }
+
+            return headers;
+        }
+
         #region 车牌识别
 
         /// <summary>
@@ -55,12 +80,14 @@ namespace T.Utility.Algorithms
                     return new ActionContent<List<PlateOcrContent>>(500, "未配置<车牌识别>算法服务信息");
                 }
 
+                var headers = GetAuthorizationHeaders(algorithmService.AppKey, algorithmService.Secret);
+
                 var request = new PlateOcrRequest() { OprNum = oprNum, ImgType = imgType, ImgSource = imgSource };
                 string json = JsonHelper.Serialize(request);
 
                 _logger.LogDebug($"车牌识别请求：{json}");
 
-                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithContent(json).PostAsync();
+                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithHeaders(headers).WithContent(json).PostAsync();
                 if (httpResult.IsSuccess)
                 {
                     _logger.LogDebug($"车牌识别响应：{httpResult.Content}");
@@ -186,12 +213,14 @@ namespace T.Utility.Algorithms
                     return new ActionContent<List<MulticlassContent>>(500, "未配置<九类检测>算法服务信息");
                 }
 
+                var headers = GetAuthorizationHeaders(algorithmService.AppKey, algorithmService.Secret);
+
                 var request = new MulticlassRequest() { OprNum = oprNum, ImgType = imgType, ImgSource = imgSource };
                 string json = JsonHelper.Serialize(request);
 
                 _logger.LogDebug($"九类检测请求：{json}");
 
-                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithContent(json).PostAsync();
+                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithHeaders(headers).WithContent(json).PostAsync();
                 if (httpResult.IsSuccess)
                 {
                     _logger.LogDebug($"九类检测响应：{httpResult.Content}");
@@ -257,12 +286,14 @@ namespace T.Utility.Algorithms
                     return new ActionContent<List<MulticlassContent>>(500, "未配置<九类检测>算法服务信息");
                 }
 
+                var headers = GetAuthorizationHeaders(algorithmService.AppKey, algorithmService.Secret);
+
                 var request = new MulticlassRequest() { OprNum = oprNum, ImgType = imgType, ImgSource = imgSource };
                 string json = JsonHelper.Serialize(request);
 
                 _logger.LogDebug($"九类检测请求：{json}");
 
-                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithContent(json).PostAsync();
+                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithHeaders(headers).WithContent(json).PostAsync();
                 if (httpResult.IsSuccess)
                 {
                     _logger.LogDebug($"九类检测响应：{httpResult.Content}");
@@ -441,12 +472,14 @@ namespace T.Utility.Algorithms
                     return new ActionContent<CarFaceCorrectContent>(500, "未配置<车头车尾矫正>算法服务信息");
                 }
 
+                var headers = GetAuthorizationHeaders(algorithmService.AppKey, algorithmService.Secret);
+
                 var request = new CarFaceCorrectRequest() { OprNum = oprNum, ImgType = imgType, ImgSource = imgSource, Points = platePoints };
                 string json = JsonHelper.Serialize(request);
 
                 _logger.LogDebug($"车头车尾矫正请求：{json}");
 
-                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithContent(json).PostAsync();
+                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithHeaders(headers).WithContent(json).PostAsync();
                 if (httpResult.IsSuccess)
                 {
                     _logger.LogDebug($"车头车尾矫正响应：{httpResult.Content}");
@@ -513,6 +546,8 @@ namespace T.Utility.Algorithms
                     return new ActionContent<CarModelSimpleContent>(500, "未配置<车型识别>算法服务信息");
                 }
 
+                var headers = GetAuthorizationHeaders(algorithmService.AppKey, algorithmService.Secret);
+
                 var request = new CarModelRequest() { OprNum = oprNum, ImgType = imgType, ImgSource = imgSource };
 
                 if (faceRect.HasValue)
@@ -527,7 +562,7 @@ namespace T.Utility.Algorithms
 
                 _logger.LogDebug($"车型识别请求：{json}");
 
-                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithContent(json).PostAsync();
+                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithHeaders(headers).WithContent(json).PostAsync();
                 if (httpResult.IsSuccess)
                 {
                     _logger.LogDebug($"车型识别响应：{httpResult.Content}");
@@ -700,6 +735,8 @@ namespace T.Utility.Algorithms
                     return null;
                 }
 
+                var headers = GetAuthorizationHeaders(algorithmService.AppKey, algorithmService.Secret);
+
                 //参数校验
                 if (cameraWidth < 1 || cameraHeight < 1)
                     return null;
@@ -725,7 +762,7 @@ namespace T.Utility.Algorithms
                 string json = JsonHelper.Serialize(request);
                 _logger.LogDebug($"泊位高点映射请求：{json}");
 
-                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithContent(json).PostAsync();
+                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithHeaders(headers).WithContent(json).PostAsync();
                 if (httpResult.IsSuccess)
                 {
                     _logger.LogDebug($"泊位高点映射响应：{httpResult.Content}");
@@ -778,43 +815,14 @@ namespace T.Utility.Algorithms
                     return new ActionContent<BerthHistoryStateContent>(500, "未配置<泊位历史状态>算法服务信息");
                 }
 
-                return await BerthHistoryStatesAsync(algorithmService.Url, string.Empty, parkCode, berthCode, beginTime, endTime);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "泊位历史状态查询失败");
-                return new ActionContent<BerthHistoryStateContent>(500, ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 泊位历史状态查询
-        /// </summary>
-        /// <param name="serviceUrl"></param>
-        /// <param name="serviceToken"></param>
-        /// <param name="parkCode"></param>
-        /// <param name="berthCode"></param>
-        /// <param name="beginTime"></param>
-        /// <param name="endTime"></param>
-        /// <returns></returns>
-        public async Task<ActionContent<BerthHistoryStateContent>> BerthHistoryStatesAsync(string serviceUrl, string serviceToken, string parkCode, string berthCode, DateTime beginTime, DateTime endTime)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(serviceUrl))
-                {
-                    _logger.LogError("<泊位历史状态>服务地址为空");
-                    return new ActionContent<BerthHistoryStateContent>(500, "<泊位历史状态>服务地址为空");
-                }
+                var headers = GetAuthorizationHeaders(algorithmService.AppKey, algorithmService.Secret);
 
                 var request = new BerthHistoryStateRequest() { ParkCode = parkCode, BerthCode = berthCode, BeginTime = beginTime, EndTime = endTime };
                 string json = JsonHelper.Serialize(request);
 
                 _logger.LogDebug($"泊位历史状态查询请求：{json}");
 
-                var headers = string.IsNullOrWhiteSpace(serviceToken) ? default : new Dictionary<string, object>() { { "Authorization", serviceToken } };
-
-                var httpResult = await _httpClient.SetBaseUri(serviceUrl).WithHeaders(headers).WithContent(json).PostAsync();
+                var httpResult = await _httpClient.SetBaseUri(algorithmService.Url).WithHeaders(headers).WithContent(json).PostAsync();
                 if (httpResult.IsSuccess)
                 {
                     _logger.LogDebug($"泊位历史状态查询响应：{parkCode},{berthCode},{httpResult.Content}");

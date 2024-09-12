@@ -93,7 +93,7 @@ namespace T.Test.WebApi.Controllers
         [HttpPost("bscache/berth/history")]
         public async Task<ActionContent<BerthHistoryStateContent>> BerthHistoryStatesAsync(BerthHistoryStateRequest request)
         {
-            return await _algorithmHttpClient.BerthHistoryStatesAsync("http://123.57.76.88:20031/alg/19", "bc98870e-c29a-11ea-bb35-00ff98b19e27", request.ParkCode, request.BerthCode, request.BeginTime, request.EndTime);
+            return await _algorithmHttpClient.BerthHistoryStatesAsync(request.ParkCode, request.BerthCode, request.BeginTime, request.EndTime);
         }
 
     }

@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using T.Utility.Protocol;
+using static COSXML.Model.Tag.ListBucket;
 
 /* 基于文件的对象存储封装：
  * 1、基础路径： Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "files/oss");
@@ -184,6 +185,27 @@ namespace T.Utility.OSS
             {
                 _logger.LogError(ex, "object删除失败");
                 return new ActionContent<bool>() { State = 400, Desc = "object删除失败", Value = false };
+            }
+        }
+
+        /// <summary>
+        /// Get the object key from url which start with file:// or http:// or https://
+        /// </summary>
+        /// <param name="bucket"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public string GetObjectKey(string bucket, string url)
+        {
+            try
+            {
+                string prefix = $"file://{bucket}/";
+
+                return url.StartsWith(prefix) ? url.Replace(prefix, "") : string.Empty;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "object key解析失败");
+                return string.Empty;
             }
         }
 

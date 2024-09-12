@@ -55,5 +55,13 @@ namespace T.Utility.OSS
         /// <param name="key"></param>
         /// <returns>True when success;Otherwise returns false.</returns>
         public Task<ActionContent<bool>> DeleteObject(string bucket, string key);
+
+        /// <summary>
+        /// Get the object key from url which start with file:// or http:// or https://
+        /// </summary>
+        /// <param name="bucket"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public string GetObjectKey(string bucket, string url);
     }
 }

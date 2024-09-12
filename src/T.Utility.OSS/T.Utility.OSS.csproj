@@ -4,21 +4,8 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>boang</Authors>
     <Company>boang.tech</Company>
-    <Description>1.0.4
-1、基于文件的存储，文件路径转网络路径方法扩展
-
-1.0.3
-1、兼容Huawei.OBS的log4net低版本在net5.0的System.Net.NameResolution包降级问题
-
-1.0.2
-1、兼容MinIO高版本在net5.0报System.Text.Json不支持的问题
-
-1.0.1
-1、增加注释
-
-1.0.0
-1、基于阿里云、腾讯云、华为云、MinIO、本地文件的对象存储封装</Description>
-    <Version>1.0.4</Version>
+    <Description></Description>
+    <Version>1.0.5</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -33,7 +20,7 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
     <PackageReference Include="Minio" Version="4.0.7" />
     <PackageReference Include="T.Utility" Version="2.1.1" />
-    <PackageReference Include="T.Utility.Protocol" Version="1.1.5" />
+    <PackageReference Include="T.Utility.Protocol" Version="1.1.6" />
     <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.34" />
   </ItemGroup>
 

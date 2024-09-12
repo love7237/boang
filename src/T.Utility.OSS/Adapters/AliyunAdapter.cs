@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using T.Utility.Protocol;
+using static COSXML.Model.Tag.ListBucket;
 
 namespace T.Utility.OSS
 {
@@ -225,5 +226,27 @@ namespace T.Utility.OSS
             }
         }
 
+        /// <summary>
+        /// Get the object key from url which start with file:// or http:// or https://
+        /// </summary>
+        /// <param name="bucket"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public string GetObjectKey(string bucket, string url)
+        {
+            try
+            {
+                string scheme = _settings.SSL ? "https" : "http";
+
+                string prefix = $"{scheme}://{bucket}.{_settings.Endpoint}/";
+
+                return url.StartsWith(prefix) ? url.Replace(prefix, "") : string.Empty;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "object key解析失败");
+                return string.Empty;
+            }
+        }
     }
 }

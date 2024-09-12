@@ -6,7 +6,7 @@ namespace T.Utility.OSS
     /// <summary>
     /// 
     /// </summary>
-    public static class OssExtensions
+    public static class IServiceCollectionExtensions
     {
         /// <summary>
         /// 注册对象存储模块

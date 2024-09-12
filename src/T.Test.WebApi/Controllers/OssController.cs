@@ -97,9 +97,9 @@ namespace T.Test.WebApi.Controllers
 
                 var result = await _ossHelper.PutObject(key, new MemoryStream(bytes));
 
-                if (result.State == 200 && _ossHelper.TryDecodeUrl(result.Value, out string url))
+                if (result.State == 200)
                 {
-                    result.Value = url;
+                    result.Value = _ossHelper.GetNetworkUrl(result.Value);
                 }
 
                 return result;

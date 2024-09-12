@@ -206,6 +206,27 @@ namespace T.Utility.OSS
         }
 
         /// <summary>
+        /// Get the object key from url which start with file:// or http:// or https://
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public string GetObjectKey(string url)
+        {
+            try
+            {
+                if (!TryGetClient(out var client))
+                    return string.Empty;
+
+                return client.GetObjectKey(_settings.Bucket, url);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "object key解析失败");
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets the network address from a file based oss url
         /// </summary>
         /// <param name="fileUrl">a file based oss url, such as: file://bucket/.../xxx.jpg</param>
@@ -248,8 +269,6 @@ namespace T.Utility.OSS
                         }
                     }
                 }
-
-
 
                 var httpResult = await _httpClient.SetBaseUri(url).GetByteArrayAsync();
                 if (httpResult.IsSuccess)

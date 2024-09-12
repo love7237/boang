@@ -257,28 +257,41 @@ namespace T.Utility.OSS
         {
             try
             {
-                //地址转换
-                if (_settings.IntranetTransforms.IsNotNullOrEmpty())
+                if (url.StartsWith("https://") || url.StartsWith("http://"))
                 {
-                    foreach (var item in _settings.IntranetTransforms)
+                    if (_settings.IntranetTransforms.IsNotNullOrEmpty())
                     {
-                        if (url.Contains(item.Source))
+                        foreach (var item in _settings.IntranetTransforms)
                         {
-                            url = url.Replace(item.Source, item.Target);
-                            break;
+                            if (url.Contains(item.Source))
+                            {
+                                url = url.Replace(item.Source, item.Target);
+                                break;
+                            }
                         }
+                    }
+
+                    var httpResult = await _httpClient.SetBaseUri(url).GetByteArrayAsync();
+                    if (httpResult.IsSuccess)
+                    {
+                        return new ActionContent<byte[]>() { State = 200, Value = httpResult.Content };
+                    }
+                    else
+                    {
+                        return new ActionContent<byte[]>() { State = 400, Desc = httpResult.Exception.Message };
+                    }
+                }
+                else if (url.StartsWith("file://"))
+                {
+                    string objectKey = GetObjectKey(url);
+
+                    if (!string.IsNullOrWhiteSpace(objectKey))
+                    {
+                        return await GetObject(objectKey);
                     }
                 }
 
-                var httpResult = await _httpClient.SetBaseUri(url).GetByteArrayAsync();
-                if (httpResult.IsSuccess)
-                {
-                    return new ActionContent<byte[]>() { State = 200, Value = httpResult.Content };
-                }
-                else
-                {
-                    return new ActionContent<byte[]>() { State = 400, Desc = httpResult.Exception.Message };
-                }
+                return new ActionContent<byte[]>(400, "代理下载失败");
             }
             catch (Exception ex)
             {

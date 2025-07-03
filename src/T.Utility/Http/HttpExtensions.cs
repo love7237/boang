@@ -271,7 +271,16 @@ namespace T.Utility.Http
                                 }
                                 else if (httpResult is HttpResult<Stream> streamHttpResult)
                                 {
-                                    streamHttpResult.Response.Content = await response.Content.ReadAsStreamAsync();
+                                    var stream = await response.Content.ReadAsStreamAsync();
+
+                                    var memoryStream = new MemoryStream();
+
+                                    stream.CopyTo(memoryStream);
+
+                                    memoryStream.Position = 0;
+                                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                                    streamHttpResult.Response.Content = memoryStream;
                                 }
                             }
                             else

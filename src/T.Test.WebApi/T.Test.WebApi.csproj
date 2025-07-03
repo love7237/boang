@@ -20,6 +20,7 @@
     <ProjectReference Include="..\T.Utility.OSS\T.Utility.OSS.csproj" />
     <ProjectReference Include="..\T.Utility.Protocol\T.Utility.Protocol.csproj" />
     <ProjectReference Include="..\T.Utility.Snowflake\T.Utility.Snowflake.csproj" />
+    <ProjectReference Include="..\T.Utility\T.Utility.csproj" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>

@@ -3,10 +3,15 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Net.Http;
 using System.Threading.Tasks;
 using T.Test.WebApi.Models;
 using T.Utility.Algorithms;
 using T.Utility.Protocol;
+using T.Utility.Extensions;
+using T.Utility.Http;
+using System.IO;
+using System.Text;
 
 namespace T.Test.WebApi.Controllers
 {
@@ -16,11 +21,41 @@ namespace T.Test.WebApi.Controllers
     {
         private readonly ILogger<AlgorithmController> _logger;
         private readonly AlgorithmHttpClient _algorithmHttpClient;
+        private readonly HttpClient httpClient;
 
-        public AlgorithmController(ILogger<AlgorithmController> logger, AlgorithmHttpClient algorithmHttpClient)
+        public AlgorithmController(ILogger<AlgorithmController> logger, AlgorithmHttpClient algorithmHttpClient, HttpClient httpClient)
         {
             _logger = logger;
             _algorithmHttpClient = algorithmHttpClient;
+            this.httpClient = httpClient;
+        }
+
+        /// <summary>
+        /// 车牌识别
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpGet("home/test")]
+        public async Task<ActionContent> Test()
+        {
+            try
+            {
+                var httpResult = await httpClient.SetBaseUri("https://www.baidu.com/").GetStreamAsync();
+                if (httpResult.IsSuccess)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+
+                    httpResult.Content.CopyTo(memoryStream);
+
+                    var sss = Encoding.UTF8.GetString(memoryStream.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return new ActionContent(200);
         }
 
         /// <summary>

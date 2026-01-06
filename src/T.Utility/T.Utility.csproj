@@ -5,30 +5,11 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Boang</Authors>
     <Company>boang.tech</Company>
-    <AssemblyVersion>2.1.2.3</AssemblyVersion>
-    <FileVersion>2.1.2.3</FileVersion>
-    <Version>2.1.3</Version>
-    <Description>2.1.3
-1、HttpExtensions方法扩展
-
-2.1.2
-1、修复了 HttpClient 流读取失败的问题
-
-2.1.1
-1、变更 HttpClient 禁止请求头格式验证
-
-2.1.0
-1、HttpExtensions方法扩展
-
-2.0.9
-1、增加LongToStringConverter转换器
-
-2.0.8
-1、修复了取JSON子串多双引号的问题
-
-2.0.7
-1、增加StatusCodeException标识HTTP响应状态非2xx
-2、移除从动态类型解析查询参数的HTTP扩展</Description>
+    <AssemblyVersion>2.1.4.0</AssemblyVersion>
+    <FileVersion>2.1.4.0</FileVersion>
+    <Version>2.1.4</Version>
+    <Description>2.1.4
+1、HashHelper方法扩展</Description>
     <PackageProjectUrl>https://github.com/love7237/boang</PackageProjectUrl>
   </PropertyGroup>
 

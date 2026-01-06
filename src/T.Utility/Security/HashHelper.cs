@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace T.Utility.Security
@@ -19,8 +20,9 @@ namespace T.Utility.Security
         {
             using (MD5 md5 = new MD5CryptoServiceProvider())
             {
-                StringBuilder stringBuilder = new StringBuilder();
                 byte[] byteArray = md5.ComputeHash(bytes);
+
+                var stringBuilder = new StringBuilder();
                 foreach (byte b in byteArray)
                 {
                     stringBuilder.AppendFormat("{0:x2}", b);
@@ -47,16 +49,37 @@ namespace T.Utility.Security
         #region sha1
 
         /// <summary>
+        /// 计算文件流的sha1值
+        /// </summary>
+        /// <param name="stream">文件流</param>
+        /// <returns></returns>
+        public static string Sha1(Stream stream)
+        {
+            using (SHA1 sha1 = new SHA1Managed())
+            {
+                byte[] byteArray = sha1.ComputeHash(stream);
+
+                var stringBuilder = new StringBuilder();
+                foreach (byte b in byteArray)
+                {
+                    stringBuilder.AppendFormat("{0:x2}", b);
+                }
+                return stringBuilder.ToString();
+            }
+        }
+
+        /// <summary>
         /// 计算字节数组的sha1值
         /// </summary>
         /// <param name="bytes">字节数组</param>
         /// <returns></returns>
         public static string Sha1(byte[] bytes)
         {
-            using (SHA1Managed sha1 = new SHA1Managed())
+            using (SHA1 sha1 = new SHA1Managed())
             {
-                StringBuilder stringBuilder = new StringBuilder();
                 byte[] byteArray = sha1.ComputeHash(bytes);
+
+                var stringBuilder = new StringBuilder();
                 foreach (byte b in byteArray)
                 {
                     stringBuilder.AppendFormat("{0:x2}", b);
@@ -91,8 +114,9 @@ namespace T.Utility.Security
         {
             using (SHA256 sha256 = new SHA256Managed())
             {
-                StringBuilder stringBuilder = new StringBuilder();
                 byte[] byteArray = sha256.ComputeHash(bytes);
+
+                var stringBuilder = new StringBuilder();
                 foreach (byte b in byteArray)
                 {
                     stringBuilder.AppendFormat("{0:x2}", b);
@@ -127,8 +151,9 @@ namespace T.Utility.Security
         {
             using (SHA512 sha512 = new SHA512Managed())
             {
-                StringBuilder stringBuilder = new StringBuilder();
                 byte[] byteArray = sha512.ComputeHash(bytes);
+
+                var stringBuilder = new StringBuilder();
                 foreach (byte b in byteArray)
                 {
                     stringBuilder.AppendFormat("{0:x2}", b);
